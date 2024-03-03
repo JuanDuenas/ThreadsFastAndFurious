@@ -1,8 +1,18 @@
+import co.edu.uptc.logic.Controller;
 import co.edu.uptc.model.Player;
 import co.edu.uptc.model.ThreadPlayer;
 
 public class Runner {
     public static void main(String[] args){
+
+
+        Controller c = new Controller();
+        c.loadValues();
+        for (Player p: c.getListPlayers()){
+            System.out.println(p.getName());
+        }
+
+        /*
         Player p1 = new Player();
         p1.setThreadPlayer(new ThreadPlayer("America/Bogota"));
 
@@ -29,5 +39,7 @@ public class Runner {
         t3.start();
         t4.start();
         t5.start();
+        */
+
     }
 }

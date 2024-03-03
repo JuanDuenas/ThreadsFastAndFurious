@@ -2,10 +2,19 @@ package co.edu.uptc.model;
 
 public class Player {
     private String name;
-    private ThreadPlayer threadPlayer;
+    //private ThreadPlayer threadPlayer;
     private String ubication;
+    private String zoneId;
     private int numParties;
     private int points;
+
+    public String getZoneId() {
+        return zoneId;
+    }
+
+    public void setZoneId(String zoneId) {
+        this.zoneId = zoneId;
+    }
 
     public String getName() {
         return name;
@@ -14,7 +23,7 @@ public class Player {
     public void setName(String name) {
         this.name = name;
     }
-
+/*
     public ThreadPlayer getThreadPlayer() {
         return threadPlayer;
     }
@@ -22,6 +31,8 @@ public class Player {
     public void setThreadPlayer(ThreadPlayer threadPlayer) {
         this.threadPlayer = threadPlayer;
     }
+
+ */
 
     public String getUbication() {
         return ubication;

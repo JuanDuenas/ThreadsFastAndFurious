@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Raúl",
+    "ubication": "0,1",
+    "numParties": 0,
+    "points": 0,
+    "zoneId": "America/Bogota"
+  },
+  {
+    "name": "Rocio",
+    "ubication": "0,1",
+    "numParties": 0,
+    "points": 0,
+    "zoneId":"Asia/Tokyo"
+  },
+  {
+    "name": "Laura",
+    "ubication": "0,1",
+    "numParties": 0,
+    "points": 0,
+    "zoneId":"Europe/Paris"
+  },
+  {
+  "name": "Carolina",
+  "ubication": "0,1",
+  "numParties": 0,
+  "points": 0,
+    "zoneId":"America/New_York"
+  },
+  {
+  "name": "José",
+  "ubication": "0,1",
+  "numParties": 0,
+  "points": 0,
+    "zoneId":"Europe/Rome"
+  }
+]
