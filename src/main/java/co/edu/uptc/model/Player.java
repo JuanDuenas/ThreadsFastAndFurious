@@ -2,7 +2,6 @@ package co.edu.uptc.model;
 
 public class Player {
     private String name;
-    //private ThreadPlayer threadPlayer;
     private String ubication;
     private String zoneId;
     private int numParties;
@@ -23,16 +22,6 @@ public class Player {
     public void setName(String name) {
         this.name = name;
     }
-/*
-    public ThreadPlayer getThreadPlayer() {
-        return threadPlayer;
-    }
-
-    public void setThreadPlayer(ThreadPlayer threadPlayer) {
-        this.threadPlayer = threadPlayer;
-    }
-
- */
 
     public String getUbication() {
         return ubication;

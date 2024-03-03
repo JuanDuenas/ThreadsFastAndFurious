@@ -7,10 +7,8 @@ public class Runner {
 
 
         Controller c = new Controller();
-        c.loadValues();
-        for (Player p: c.getListPlayers()){
-            System.out.println(p.getName());
-        }
+        c.initgame();
+
 
         /*
         Player p1 = new Player();

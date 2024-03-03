@@ -1,6 +1,7 @@
 package co.edu.uptc.logic;
 
 import co.edu.uptc.model.Player;
+import co.edu.uptc.model.ThreadPlayer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -9,11 +10,35 @@ import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Logger;
 
 public class Controller {
     private List<Player> listPlayers;
 
+    public void initgame(){
+        loadValues();
+
+        List<ThreadPlayer> listThreadPlayer = new ArrayList<>();
+
+        for (Player p: listPlayers){
+            ThreadPlayer tp = new ThreadPlayer(p.getZoneId());
+            listThreadPlayer.add(tp);
+        }
+
+        Thread t1 = new Thread(listThreadPlayer.get(0));
+        Thread t2 = new Thread(listThreadPlayer.get(1));
+        Thread t3 = new Thread(listThreadPlayer.get(2));
+        Thread t4 = new Thread(listThreadPlayer.get(3));
+        Thread t5 = new Thread(listThreadPlayer.get(4));
+
+        t1.start();
+        t2.start();
+        t3.start();
+        t4.start();
+        t5.start();
+
+    }
 
     public Controller(){
         listPlayers = new ArrayList<>();
@@ -23,7 +48,7 @@ public class Controller {
         return listPlayers;
     }
 
-    public void loadValues() {
+    private void loadValues() {
 
         Gson gson = new Gson();
 
@@ -50,5 +75,10 @@ public class Controller {
             e.getMessage();
         }
         return null;
+    }
+
+    public int makeLaunch(){
+        int value = ((int) (Math.random()*6)+1) + ((int) (Math.random()*6)+1);
+        return value;
     }
 }
