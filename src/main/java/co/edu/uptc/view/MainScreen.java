@@ -4,6 +4,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -23,6 +25,7 @@ public class MainScreen extends JFrame {
     public MainScreen() {
         setSize(400, 600);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setTitle("Rápidos y Furiosos");
         setLocationRelativeTo(null);
         setResizable(false);
         setLayout(null);
@@ -105,6 +108,15 @@ public class MainScreen extends JFrame {
         btnPlay.setForeground(Color.BLACK);
         btnPlay.setFont(new Font("SansSerif", Font.BOLD, 15));
         pnlBackground.add(btnPlay);
+
+        btnPlay.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                GameScreen gs = new GameScreen();
+
+            }
+        });
     }
     private void createComboBox() {
         Integer[] numbers = {1, 2, 3, 4, 5};
