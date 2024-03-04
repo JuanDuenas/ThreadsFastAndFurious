@@ -50,7 +50,6 @@ public class MainScreen extends JFrame {
         add(pnlBackground);
 
         pnlWhiteBG = new JPanel();
-        //pnlWhiteBG.setBackground(Color.decode("#DEDEDE"));
         pnlWhiteBG.setBackground(Color.white);
         pnlWhiteBG.setBounds(0,70,400,250);
         pnlWhiteBG.setLayout(null);
@@ -65,31 +64,26 @@ public class MainScreen extends JFrame {
 
         lblPlayer1 = new JLabel("Jugador 1");
         lblPlayer1.setBounds(25,10,250,40);
-        //lblPlayer1.setForeground(Color.white);
         lblPlayer1.setFont(new Font("SansSerif", Font.BOLD, 18));
         pnlWhiteBG.add(lblPlayer1);
 
         lblPlayer2 = new JLabel("Jugador 2");
         lblPlayer2.setBounds(25,55,250,40);
-        //lblPlayer2.setForeground(Color.white);
         lblPlayer2.setFont(new Font("SansSerif", Font.BOLD, 18));
         pnlWhiteBG.add(lblPlayer2);
 
         lblPlayer3 = new JLabel("Jugador 3");
         lblPlayer3.setBounds(25,100,250,40);
-        //lblPlayer3.setForeground(Color.white);
         lblPlayer3.setFont(new Font("SansSerif", Font.BOLD, 18));
         pnlWhiteBG.add(lblPlayer3);
 
         lblPlayer4= new JLabel("Jugador 4");
         lblPlayer4.setBounds(25,145,250,40);
-        //lblPlayer4.setForeground(Color.white);
         lblPlayer4.setFont(new Font("SansSerif", Font.BOLD, 18));
         pnlWhiteBG.add(lblPlayer4);
 
         lblPlayer5 = new JLabel("Jugador 5");
         lblPlayer5.setBounds(25,190,250,40);
-        //lblPlayer5.setForeground(Color.white);
         lblPlayer5.setFont(new Font("SansSerif", Font.BOLD, 18));
         pnlWhiteBG.add(lblPlayer5);
     }

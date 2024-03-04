@@ -24,10 +24,20 @@ public class GameScreen extends JFrame {
 
     JButton btnPlayer1, btnPlayer2, btnPlayer3, btnPlayer4, btnPlayer5;
 
+    boolean i1 = false;
+    boolean i2 = false;
+    boolean i3 = false;
+    boolean i4 = false;
+    boolean i5 = false;
+
     Controller c;
 
 
     public GameScreen() {
+
+        c = new Controller();
+        c.initgame();
+
         setSize(900, 500);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Rápidos y Furiosos");
@@ -42,13 +52,28 @@ public class GameScreen extends JFrame {
 
         createPanel();
 
-        carMovement(32/*Pasar parámetro de imágen dependiendo del botón*/);
+        lblName = new JLabel();
+        lblMatch = new JLabel();
+        lblHour = new JLabel();
+        lblPosition = new JLabel();
+        lblLastScore = new JLabel();
+        lblMissingScore = new JLabel();
+        lblTotalScore = new JLabel();
+        lblDiceRolls = new JLabel();
 
-        createLabel();
+
+        //createLabel();
         //createImages();
         createButton();
 
-        updateInfo();
+        updateInfo(4);
+        updateInfo(3);
+        updateInfo(2);
+        updateInfo(1);
+        updateInfo(0);
+
+
+
 
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -65,208 +90,165 @@ public class GameScreen extends JFrame {
         add(pnlGame);
     }
 
-    private void carMovement(int score) {
+    private void carMovement(int score, int carIndex) {
         //Puntuación, nombre
         //UBICACIÓN INCIAL 20,20
-
-
-        try {
-            if (car != null) {
+        if (car != null) {
                 pnlGame.remove(car);
             }
             if (lblTrack != null) {
                 pnlGame.remove(lblTrack);
             }
-
-            Image car1Image = ImageIO.read(new File("Image/Car1.png"));
-            ImageIcon car1Icon = new ImageIcon(car1Image);
-            car = new JLabel(car1Icon);
-
-
-            double rotationDegrees = 0;
-            int xPosition = 0;
-            int yPosition = 0;
-
-            if(score >= 0 && score< 6){
-                xPosition = 220 + (score*40);
-                yPosition = 220;
-            } else if(score >= 6 && score <= 10) {
-                if(score == 6){
-                    rotationDegrees = 30;
-                    xPosition = 450;
-                    yPosition = 230;
-                } else if(score == 7){
-                    rotationDegrees = 60;
-                    xPosition = 465;
-                    yPosition = 260;
-                }
-                else if(score == 8){
-                    rotationDegrees = 90;
-                    xPosition = 475;
-                    yPosition = 285;
-                }
-                else if(score == 9){
-                    rotationDegrees = 120;
-                    xPosition = 465;
-                    yPosition = 310;
-                }
-                else if(score == 10){
-                    rotationDegrees = 150;
-                    xPosition = 450;
-                    yPosition = 325;
-                }
-            } else if(score >= 11 && score <= 20) {
-                rotationDegrees = 180;
-                xPosition = 700 - (score*30);
-                yPosition = 340;
-            } else if(score >= 21 && score <= 25) {
-                if(score == 21){
-                    rotationDegrees = 210;
-                    xPosition = 50;
-                    yPosition = 330;
-                } else if(score == 22){
-                    rotationDegrees = 240;
-                    xPosition = 30;
-                    yPosition = 300;
-                }
-                else if(score == 23){
-                    rotationDegrees = 270;
-                    xPosition = 25;
-                    yPosition = 270;
-                }
-                else if(score == 24){
-                    rotationDegrees = 300;
-                    xPosition = 30;
-                    yPosition = 240;
-                }
-                else if(score == 25) {
-                    rotationDegrees = 335;
-                    xPosition = 560;
-                    yPosition = 235;
-                }
-            } else  if(score >= 26 && score <= 32){
-                xPosition = -420 + (score*20);
-                yPosition = 220;
-            }
-
-            car.setBounds(xPosition, yPosition, 90, 90);
-
-
-            AffineTransform transform = new AffineTransform();
-            transform.rotate(Math.toRadians(rotationDegrees), car.getWidth() / 2.0, car.getHeight() / 2.0);
-
-            // Crear una imagen transformada
-            BufferedImage rotatedImage = new BufferedImage(car.getWidth(), car.getHeight(), BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g2d = rotatedImage.createGraphics();
-            g2d.setTransform(transform);
-            g2d.drawImage(car1Image, 0, 0, null);
-            g2d.dispose();
-
-            // Crear un nuevo ícono a partir de la imagen rotada
-            ImageIcon rotatedIcon = new ImageIcon(rotatedImage);
-            car.setIcon(rotatedIcon);
-            car.setVisible(true);
-            pnlGame.add(car);
-
+            pnlGame.add(c.getListThreadLauch().get(carIndex).getJLCar());
             pnlGame.revalidate();
             pnlGame.repaint();
 
-            createImages();
+             createImages();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
     @SuppressWarnings("InfiniteLoopStatement")
-    private void updateInfo() {
+    private void updateInfo(int index) {
          /*
         AGREGAR PARÁMETROS NECESARIOS PARA OPTENER LA INFORMACIÓN DE LOS RESPECTIVOS JUGADORES
         */
-        c = new Controller();
-        c.initgame();
 
+        createLabel();
+        lblHour.setText("");
+        lblName.setText("");
 
-            lblName = new JLabel(c.getListPlayers().get(0).getName());
+        pnlInfo.remove(lblHour);
+        pnlInfo.remove(lblMatch);
+        pnlInfo.remove(lblPosition);
+        pnlInfo.remove(lblMissingScore);
+        pnlInfo.remove(lblLastScore);
+        pnlInfo.remove(lblTotalScore);
+        pnlInfo.remove(lblDiceRolls);
+
+        int points = c.getListThreadLauch().get(index).getPoints();
+
+            lblName = new JLabel(c.getListPlayers().get(index).getName());
             lblName.setBounds(0,45,300,80);
             lblName.setForeground(Color.white);
             lblName.setHorizontalAlignment(SwingConstants.CENTER);
-            lblName.setFont(new Font("SansSerif", Font.BOLD, 15));
+            lblName.setFont(new Font("SansSerif", Font.BOLD, 14));
             pnlInfo.add(lblName);
 
-            lblHour = c.getListThreadPlayer().get(0).getJLHour();
+            lblHour = c.getListThreadPlayer().get(index).getJLHour();
             lblHour.setBounds(0,80,300,80);
             lblHour.setForeground(Color.decode("#FFC000"));
             lblHour.setHorizontalAlignment(SwingConstants.CENTER);
-            lblHour.setFont(new Font("SansSerif", Font.PLAIN, 15));
+            lblHour.setFont(new Font("SansSerif", Font.PLAIN, 14));
             pnlInfo.add(lblHour);
 
-            lblMatch = new JLabel("PARTIDA: "+c.getListPlayers().get(0).getNumParties());
+            lblMatch = new JLabel("PARTIDA: "+(c.getListPlayers().get(index).getNumParties()+1));
             lblMatch.setBounds(20,115,260,80);
             lblMatch.setForeground(Color.white);
             lblMatch.setHorizontalAlignment(SwingConstants.LEFT);
-            lblMatch.setFont(new Font("SansSerif", Font.BOLD, 15));
+            lblMatch.setFont(new Font("SansSerif", Font.BOLD, 14));
             pnlInfo.add(lblMatch);
 
-            lblPosition = new JLabel("POSICIÓN:"+c.getListThreadLauch().get(0).getPoints());
+            lblPosition = c.getListThreadLauch().get(index).getJLPosition();
             lblPosition.setBounds(20,150,260,80);
             lblPosition.setForeground(Color.white);
             lblPosition.setHorizontalAlignment(SwingConstants.LEFT);
-            lblPosition.setFont(new Font("SansSerif", Font.BOLD, 15));
+            lblPosition.setFont(new Font("SansSerif", Font.BOLD, 14));
             pnlInfo.add(lblPosition);
 
-            lblDiceRolls = new JLabel("LANZAMIENTOS: "+c.getListThreadLauch().get(0).getCountLauchess());
+            lblDiceRolls = c.getListThreadLauch().get(index).getJLLaunchess();
             lblDiceRolls.setBounds(20,185,260,80);
             lblDiceRolls.setForeground(Color.white);
             lblDiceRolls.setHorizontalAlignment(SwingConstants.LEFT);
-            lblDiceRolls.setFont(new Font("SansSerif", Font.BOLD, 15));
+            lblDiceRolls.setFont(new Font("SansSerif", Font.BOLD, 14));
             pnlInfo.add(lblDiceRolls);
 
             lblLastScore = new JLabel("ULTIMO PUNTAJE: ");
             lblLastScore.setBounds(20,220,260,80);
             lblLastScore.setForeground(Color.white);
             lblLastScore.setHorizontalAlignment(SwingConstants.LEFT);
-            lblLastScore.setFont(new Font("SansSerif", Font.BOLD, 15));
+            lblLastScore.setFont(new Font("SansSerif", Font.BOLD, 14));
             pnlInfo.add(lblLastScore);
 
-            lblTotalScore = c.getListThreadLauch().get(0).getJLPoints();
+            lblTotalScore = c.getListThreadLauch().get(index).getJLPoints();
             lblTotalScore.setBounds(20,255,260,80);
             lblTotalScore.setForeground(Color.white);
             lblTotalScore.setHorizontalAlignment(SwingConstants.LEFT);
-            lblTotalScore.setFont(new Font("SansSerif", Font.BOLD, 15));
+            lblTotalScore.setFont(new Font("SansSerif", Font.BOLD, 14));
             pnlInfo.add(lblTotalScore);
 
-            lblMissingScore = new JLabel("PUNTAJE FALTANTE: "+(200 - c.getListPlayers().get(0).getPoints()));
+            lblMissingScore = c.getListThreadLauch().get(index).getJLFaltPoints();
             lblMissingScore.setBounds(20,290,260,80);
             lblMissingScore.setForeground(Color.white);
             lblMissingScore.setHorizontalAlignment(SwingConstants.LEFT);
-            lblMissingScore.setFont(new Font("SansSerif", Font.BOLD, 15));
+            lblMissingScore.setFont(new Font("SansSerif", Font.BOLD, 14));
             pnlInfo.add(lblMissingScore);
+
+            pnlInfo.revalidate();
+            pnlInfo.repaint();
+            validateCar(index);
+
+    }
+
+    private void validateCar(int index){
+        switch (index) {
+            case 0:
+                if(!i1){
+                    carMovement(c.getListThreadLauch().get(index).getPoints(),index);
+                }
+                i1 = true;
+            case 1:
+                if(!i2){
+                    carMovement(c.getListThreadLauch().get(index).getPoints(),index);
+                    i2 = true;
+                }
+
+            case 2:
+                if(!i3){
+                    i3 = true;
+                    carMovement(c.getListThreadLauch().get(index).getPoints(),index);
+
+                }
+
+            case 3:
+                if(!i4){
+                    carMovement(c.getListThreadLauch().get(index).getPoints(),index);
+                    i4 = true;
+                }
+
+            case 4:
+                if(!i5){
+                    carMovement(c.getListThreadLauch().get(index).getPoints(),index);
+                    i5 = true;
+                }
+
+
+        }
 
 
     }
+
     private void createLabel() {
 
-        lblPlayer1 = new JLabel("Jugador 1");
+        lblPlayer1 = new JLabel(c.getListPlayers().get(0).getName());
         lblPlayer1.setBounds(10, 20, 90, 30);
         lblPlayer1.setHorizontalAlignment(SwingConstants.CENTER);
         pnlGame.add(lblPlayer1);
 
-        lblPlayer2 = new JLabel("Jugador 2");
+        lblPlayer2 = new JLabel(c.getListPlayers().get(1).getName());
         lblPlayer2.setBounds(120, 20, 90, 30);
         lblPlayer2.setHorizontalAlignment(SwingConstants.CENTER);
         pnlGame.add(lblPlayer2);
 
-        lblPlayer3 = new JLabel("Jugador 3");
+        lblPlayer3 = new JLabel(c.getListPlayers().get(2).getName());
         lblPlayer3.setBounds(240, 20, 90, 30);
         lblPlayer3.setHorizontalAlignment(SwingConstants.CENTER);
         pnlGame.add(lblPlayer3);
 
-        lblPlayer4 = new JLabel("Jugador 4");
+        lblPlayer4 = new JLabel(c.getListPlayers().get(3).getName());
         lblPlayer4.setBounds(360, 20, 90, 30);
         lblPlayer4.setHorizontalAlignment(SwingConstants.CENTER);
         pnlGame.add(lblPlayer4);
 
-        lblPlayer5 = new JLabel("Jugador 5");
+        lblPlayer5 = new JLabel(c.getListPlayers().get(4).getName());
         lblPlayer5.setBounds(480, 20, 90, 30);
         lblPlayer5.setHorizontalAlignment(SwingConstants.CENTER);
         pnlGame.add(lblPlayer5);
@@ -288,10 +270,16 @@ public class GameScreen extends JFrame {
         btnPlayer1.setBorder(new LineBorder(Color.black, 1));
         pnlGame.add(btnPlayer1);
 
+
         btnPlayer1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carMovement((int)(Math.random()*10));
+                Object o = e.getSource();
+                if(o.equals(btnPlayer1)){
+
+
+                    updateInfo(0);
+                }
             }
         });
 
@@ -299,8 +287,21 @@ public class GameScreen extends JFrame {
         btnPlayer2.setBounds(120, 110, 90, 40);
         btnPlayer2.setBackground(Color.white);
         btnPlayer2.setForeground(Color.black);
-        btnPlayer2.setBorder(new LineBorder(Color.black, 1));;
+        btnPlayer2.setBorder(new LineBorder(Color.black, 1));
+
         pnlGame.add(btnPlayer2);
+        btnPlayer2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object o = e.getSource();
+                if (o.equals(btnPlayer2)) {
+
+                    updateInfo(1);
+
+
+                }
+            }
+        });
 
         btnPlayer3 = new JButton("Mostrar");
         btnPlayer3.setBounds(240, 110, 90, 40);
@@ -309,6 +310,17 @@ public class GameScreen extends JFrame {
         btnPlayer3.setBorder(new LineBorder(Color.black, 1));
         pnlGame.add(btnPlayer3);
 
+        btnPlayer3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object o = e.getSource();
+                if (o.equals(btnPlayer3)) {
+
+                    updateInfo(2);
+                }
+            }
+        });
+
         btnPlayer4 = new JButton("Mostrar");
         btnPlayer4.setBounds(360, 110, 90, 40);
         btnPlayer4.setBackground(Color.white);
@@ -316,12 +328,33 @@ public class GameScreen extends JFrame {
         btnPlayer4.setBorder(new LineBorder(Color.black, 1));
         pnlGame.add(btnPlayer4);
 
+        btnPlayer4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object o = e.getSource();
+                if (o.equals(btnPlayer4)) {
+
+                    updateInfo(3);
+                }
+            }
+        });
+
         btnPlayer5 = new JButton("Mostrar");
         btnPlayer5.setBounds(480, 110, 90, 40);
         btnPlayer5.setBackground(Color.white);
         btnPlayer5.setForeground(Color.black);
         btnPlayer5.setBorder(new LineBorder(Color.black, 1));
         pnlGame.add(btnPlayer5);
+
+        btnPlayer5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object o = e.getSource();
+                if (o.equals(btnPlayer5)) {
+                    updateInfo(4);
+                }
+            }
+        });
     }
     private void createImages(){
 

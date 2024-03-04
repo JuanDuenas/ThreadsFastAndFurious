@@ -43,7 +43,7 @@ public class Controller {
 
         listThreadLauch = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            ThreadLauch tl = new ThreadLauch();
+            ThreadLauch tl = new ThreadLauch(i);
             listThreadLauch.add(tl);
         }
 
@@ -63,19 +63,16 @@ public class Controller {
             tp1.interrupt();
         }
         if(listThreadLauch.get(1).getPoints() >= 32){
-            tp1.interrupt();
+            tp2.interrupt();
         }
         if(listThreadLauch.get(2).getPoints() >= 32){
-            tp1.interrupt();
+            tp3.interrupt();
         }if(listThreadLauch.get(3).getPoints() >= 32){
-            tp1.interrupt();
+            tp4.interrupt();
         }
         if(listThreadLauch.get(4).getPoints() >= 32){
-            tp1.interrupt();
+            tp5.interrupt();
         }
-
-
-
     }
 
     public List<ThreadLauch> getListThreadLauch() {

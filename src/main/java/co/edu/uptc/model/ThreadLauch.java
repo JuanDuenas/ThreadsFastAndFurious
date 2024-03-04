@@ -2,30 +2,174 @@ package co.edu.uptc.model;
 
 import co.edu.uptc.logic.Controller;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.text.Position;
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class ThreadLauch implements Runnable{
     private int points;
     private JLabel JLPoints;
+    private JLabel JLFaltPoints;
+    private JLabel JLLaunchess;
     private int countLauchess;
-    public ThreadLauch(){
+
+    private JLabel JLPosition;
+
+    private JLabel JLCar;
+
+    private int carIndex;
+    public ThreadLauch(int carIndex){
+
+        this.carIndex = carIndex;
         points = 0;
         countLauchess = 0;
         JLPoints = new JLabel();
+        JLFaltPoints = new JLabel();
+        JLLaunchess = new JLabel();
+        JLCar = new JLabel();
+        JLPosition = new JLabel();
     }
     @Override
     public void run() {
         while(true){
             try {
                 Controller c = new Controller();
-                points += c.makeLaunch();
-                countLauchess++;
+                points = points+c.makeLaunch();
+                countLauchess +=1;
                 JLPoints.setText("PUNTAJE: "+points);
-                Thread.sleep((int) (Math.random()*10000) +5000);
+                JLFaltPoints.setText("PUNTAJE FALTANTE: "+(33-points));
+                JLLaunchess.setText("LANZAMIENTOS: "+countLauchess);
+                JLPosition.setText("POSICIÓN: "+points);
+
+                Image car1Image = null;
+
+                if(carIndex == 0) {
+                    car1Image = ImageIO.read(new File("Image/Car1.png"));
+                } if(carIndex == 1) {
+                    car1Image = ImageIO.read(new File("Image/Car2.png"));
+                } if(carIndex == 2) {
+                    car1Image = ImageIO.read(new File("Image/Car3.png"));
+                } if(carIndex == 3) {
+                    car1Image = ImageIO.read(new File("Image/Car4.png"));
+                } if(carIndex == 4) {
+                    car1Image = ImageIO.read(new File("Image/Car5.png"));
+                }
+
+                ImageIcon car1Icon = new ImageIcon(car1Image);
+
+                double rotationDegrees = 0;
+                int xPosition = 0;
+                int yPosition = 0;
+
+                if(points >= 0 && points< 6){
+                    xPosition = 220 + (points*40);
+                    yPosition = 220;
+                } else if(points >= 6 && points <= 10) {
+                    if(points == 6){
+                        rotationDegrees = 30;
+                        xPosition = 450;
+                        yPosition = 230;
+                    } else if(points == 7){
+                        rotationDegrees = 60;
+                        xPosition = 465;
+                        yPosition = 260;
+                    }
+                    else if(points == 8){
+                        rotationDegrees = 90;
+                        xPosition = 475;
+                        yPosition = 285;
+                    }
+                    else if(points == 9){
+                        rotationDegrees = 120;
+                        xPosition = 465;
+                        yPosition = 310;
+                    }
+                    else if(points == 10){
+                        rotationDegrees = 150;
+                        xPosition = 450;
+                        yPosition = 325;
+                    }
+                } else if(points >= 11 && points <= 20) {
+                    rotationDegrees = 180;
+                    xPosition = 700 - (points*30);
+                    yPosition = 340;
+                } else if(points >= 21 && points <= 25) {
+                    if(points == 21){
+                        rotationDegrees = 210;
+                        xPosition = 50;
+                        yPosition = 330;
+                    } else if(points == 22){
+                        rotationDegrees = 240;
+                        xPosition = 30;
+                        yPosition = 300;
+                    }
+                    else if(points == 23){
+                        rotationDegrees = 270;
+                        xPosition = 25;
+                        yPosition = 270;
+                    }
+                    else if(points == 24){
+                        rotationDegrees = 300;
+                        xPosition = 30;
+                        yPosition = 240;
+                    }
+                    else if(points == 25) {
+                        rotationDegrees = 335;
+                        xPosition = 560;
+                        yPosition = 235;
+                    }
+                } else  if(points >= 26 && points <= 32){
+                    xPosition = -420 + (points*20);
+                    yPosition = 220;
+                } else  if(points > 32){
+                    JLCar.setVisible(false);
+                }
+
+                JLCar.setBounds(xPosition, yPosition, 90, 90);
+
+
+                AffineTransform transform = new AffineTransform();
+                transform.rotate(Math.toRadians(rotationDegrees), JLCar.getWidth() / 2.0, JLCar.getHeight() / 2.0);
+
+                // Crear una imagen transformada
+                BufferedImage rotatedImage = new BufferedImage(JLCar.getWidth(), JLCar.getHeight(), BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g2d = rotatedImage.createGraphics();
+                g2d.setTransform(transform);
+                g2d.drawImage(car1Image, 0, 0, null);
+                g2d.dispose();
+
+                // Crear un nuevo ícono a partir de la imagen rotada
+                ImageIcon rotatedIcon = new ImageIcon(rotatedImage);
+                JLCar.setIcon(rotatedIcon);
+                JLCar.setVisible(true);
+                Thread.sleep((int) (Math.random()*10000) +4000);
             } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    public JLabel getJLPosition() {
+        return JLPosition;
+    }
+
+    public JLabel getJLCar() {
+        return JLCar;
+    }
+
+    public JLabel getJLLaunchess() {
+        return JLLaunchess;
+    }
+
+    public JLabel getJLFaltPoints() {
+        return JLFaltPoints;
     }
 
     public int getCountLauchess() {
