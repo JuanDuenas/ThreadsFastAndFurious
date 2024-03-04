@@ -22,27 +22,37 @@ public class ThreadLauch implements Runnable{
 
     private JLabel JLCar;
 
+    private JLabel JLLastLaunch;
     private int carIndex;
+
+    private int lastLaunch;
+
     public ThreadLauch(int carIndex){
 
         this.carIndex = carIndex;
         points = 0;
         countLauchess = 0;
+        lastLaunch = 0;
         JLPoints = new JLabel();
         JLFaltPoints = new JLabel();
+        JLLastLaunch = new JLabel();
         JLLaunchess = new JLabel();
         JLCar = new JLabel();
         JLPosition = new JLabel();
+
     }
     @Override
     public void run() {
         while(true){
             try {
+
                 Controller c = new Controller();
-                points = points+c.makeLaunch();
+                lastLaunch = c.makeLaunch();
+                points = points+lastLaunch;
                 countLauchess +=1;
                 JLPoints.setText("PUNTAJE: "+points);
                 JLFaltPoints.setText("PUNTAJE FALTANTE: "+(33-points));
+                JLLastLaunch.setText("ULTIMO LANZAMIENTO: "+lastLaunch);
                 JLLaunchess.setText("LANZAMIENTOS: "+countLauchess);
                 JLPosition.setText("POSICIÓN: "+points);
 
@@ -182,5 +192,9 @@ public class ThreadLauch implements Runnable{
 
     public int getPoints() {
         return points;
+    }
+
+    public JLabel getLastLaunch() {
+        return JLLastLaunch;
     }
 }

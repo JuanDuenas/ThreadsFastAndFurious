@@ -62,8 +62,6 @@ public class GameScreen extends JFrame {
         lblDiceRolls = new JLabel();
 
 
-        //createLabel();
-        //createImages();
         createButton();
 
         updateInfo(4);
@@ -103,7 +101,7 @@ public class GameScreen extends JFrame {
             pnlGame.revalidate();
             pnlGame.repaint();
 
-             createImages();
+            createImages();
 
     }
     @SuppressWarnings("InfiniteLoopStatement")
@@ -124,7 +122,7 @@ public class GameScreen extends JFrame {
         pnlInfo.remove(lblTotalScore);
         pnlInfo.remove(lblDiceRolls);
 
-        int points = c.getListThreadLauch().get(index).getPoints();
+        //int points = c.getListThreadLauch().get(index).getPoints();
 
             lblName = new JLabel(c.getListPlayers().get(index).getName());
             lblName.setBounds(0,45,300,80);
@@ -161,7 +159,7 @@ public class GameScreen extends JFrame {
             lblDiceRolls.setFont(new Font("SansSerif", Font.BOLD, 14));
             pnlInfo.add(lblDiceRolls);
 
-            lblLastScore = new JLabel("ULTIMO PUNTAJE: ");
+            lblLastScore = c.getListThreadLauch().get(index).getLastLaunch();
             lblLastScore.setBounds(20,220,260,80);
             lblLastScore.setForeground(Color.white);
             lblLastScore.setHorizontalAlignment(SwingConstants.LEFT);
@@ -219,10 +217,7 @@ public class GameScreen extends JFrame {
                     carMovement(c.getListThreadLauch().get(index).getPoints(),index);
                     i5 = true;
                 }
-
-
         }
-
 
     }
 
