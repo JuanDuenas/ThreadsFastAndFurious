@@ -1,6 +1,7 @@
 package co.edu.uptc.logic;
 
 import co.edu.uptc.model.Player;
+import co.edu.uptc.model.ThreadLauch;
 import co.edu.uptc.model.ThreadPlayer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -15,13 +16,15 @@ import java.util.logging.Logger;
 
 public class Controller {
     private List<Player> listPlayers;
+    private List<ThreadPlayer> listThreadPlayer;
+    private List<ThreadLauch> listThreadLauch;
 
-    public void initgame(){
+    public void initgame() {
         loadValues();
 
-        List<ThreadPlayer> listThreadPlayer = new ArrayList<>();
+        listThreadPlayer = new ArrayList<>();
 
-        for (Player p: listPlayers){
+        for (Player p : listPlayers) {
             ThreadPlayer tp = new ThreadPlayer(p.getZoneId());
             listThreadPlayer.add(tp);
         }
@@ -38,6 +41,49 @@ public class Controller {
         t4.start();
         t5.start();
 
+        listThreadLauch = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            ThreadLauch tl = new ThreadLauch();
+            listThreadLauch.add(tl);
+        }
+
+        Thread tp1 = new Thread(listThreadLauch.get(0));
+        Thread tp2 = new Thread(listThreadLauch.get(1));
+        Thread tp3 = new Thread(listThreadLauch.get(2));
+        Thread tp4 = new Thread(listThreadLauch.get(3));
+        Thread tp5 = new Thread(listThreadLauch.get(4));
+
+        tp1.start();
+        tp2.start();
+        tp3.start();
+        tp4.start();
+        tp5.start();
+
+        if(listThreadLauch.get(0).getPoints() >= 32){
+            tp1.interrupt();
+        }
+        if(listThreadLauch.get(1).getPoints() >= 32){
+            tp1.interrupt();
+        }
+        if(listThreadLauch.get(2).getPoints() >= 32){
+            tp1.interrupt();
+        }if(listThreadLauch.get(3).getPoints() >= 32){
+            tp1.interrupt();
+        }
+        if(listThreadLauch.get(4).getPoints() >= 32){
+            tp1.interrupt();
+        }
+
+
+
+    }
+
+    public List<ThreadLauch> getListThreadLauch() {
+        return listThreadLauch;
+    }
+
+    public List<ThreadPlayer> getListThreadPlayer() {
+        return listThreadPlayer;
     }
 
     public Controller(){

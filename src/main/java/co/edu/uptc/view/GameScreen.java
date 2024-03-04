@@ -1,5 +1,7 @@
 package co.edu.uptc.view;
 
+import co.edu.uptc.logic.Controller;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -22,6 +24,9 @@ public class GameScreen extends JFrame {
 
     JButton btnPlayer1, btnPlayer2, btnPlayer3, btnPlayer4, btnPlayer5;
 
+    Controller c;
+
+
     public GameScreen() {
         setSize(900, 500);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -33,6 +38,8 @@ public class GameScreen extends JFrame {
         pnlInfo = new JPanel();
         pnlGame = new JPanel();
 
+
+
         createPanel();
 
         carMovement(32/*Pasar parámetro de imágen dependiendo del botón*/);
@@ -40,9 +47,11 @@ public class GameScreen extends JFrame {
         createLabel();
         //createImages();
         createButton();
+
         updateInfo();
 
         setVisible(true);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
     private void createPanel() {
         pnlInfo.setBackground(Color.black);
@@ -168,66 +177,72 @@ public class GameScreen extends JFrame {
             e.printStackTrace();
         }
     }
-    private void updateInfo(){
+    @SuppressWarnings("InfiniteLoopStatement")
+    private void updateInfo() {
          /*
         AGREGAR PARÁMETROS NECESARIOS PARA OPTENER LA INFORMACIÓN DE LOS RESPECTIVOS JUGADORES
         */
+        c = new Controller();
+        c.initgame();
 
-        lblName = new JLabel("Player Name");
-        lblName.setBounds(0,45,300,80);
-        lblName.setForeground(Color.white);
-        lblName.setHorizontalAlignment(SwingConstants.CENTER);
-        lblName.setFont(new Font("SansSerif", Font.BOLD, 15));
-        pnlInfo.add(lblName);
 
-        lblHour = new JLabel("HH/MM/SS");
-        lblHour.setBounds(0,80,300,80);
-        lblHour.setForeground(Color.decode("#FFC000"));
-        lblHour.setHorizontalAlignment(SwingConstants.CENTER);
-        lblHour.setFont(new Font("SansSerif", Font.PLAIN, 15));
-        pnlInfo.add(lblHour);
+            lblName = new JLabel(c.getListPlayers().get(0).getName());
+            lblName.setBounds(0,45,300,80);
+            lblName.setForeground(Color.white);
+            lblName.setHorizontalAlignment(SwingConstants.CENTER);
+            lblName.setFont(new Font("SansSerif", Font.BOLD, 15));
+            pnlInfo.add(lblName);
 
-        lblMatch = new JLabel("PARTIDA: ");
-        lblMatch.setBounds(20,115,260,80);
-        lblMatch.setForeground(Color.white);
-        lblMatch.setHorizontalAlignment(SwingConstants.LEFT);
-        lblMatch.setFont(new Font("SansSerif", Font.BOLD, 15));
-        pnlInfo.add(lblMatch);
+            lblHour = c.getListThreadPlayer().get(0).getJLHour();
+            lblHour.setBounds(0,80,300,80);
+            lblHour.setForeground(Color.decode("#FFC000"));
+            lblHour.setHorizontalAlignment(SwingConstants.CENTER);
+            lblHour.setFont(new Font("SansSerif", Font.PLAIN, 15));
+            pnlInfo.add(lblHour);
 
-        lblPosition = new JLabel("POSICIÓN:");
-        lblPosition.setBounds(20,150,260,80);
-        lblPosition.setForeground(Color.white);
-        lblPosition.setHorizontalAlignment(SwingConstants.LEFT);
-        lblPosition.setFont(new Font("SansSerif", Font.BOLD, 15));
-        pnlInfo.add(lblPosition);
+            lblMatch = new JLabel("PARTIDA: "+c.getListPlayers().get(0).getNumParties());
+            lblMatch.setBounds(20,115,260,80);
+            lblMatch.setForeground(Color.white);
+            lblMatch.setHorizontalAlignment(SwingConstants.LEFT);
+            lblMatch.setFont(new Font("SansSerif", Font.BOLD, 15));
+            pnlInfo.add(lblMatch);
 
-        lblDiceRolls = new JLabel("LANZAMIENTOS: ");
-        lblDiceRolls.setBounds(20,185,260,80);
-        lblDiceRolls.setForeground(Color.white);
-        lblDiceRolls.setHorizontalAlignment(SwingConstants.LEFT);
-        lblDiceRolls.setFont(new Font("SansSerif", Font.BOLD, 15));
-        pnlInfo.add(lblDiceRolls);
+            lblPosition = new JLabel("POSICIÓN:"+c.getListThreadLauch().get(0).getPoints());
+            lblPosition.setBounds(20,150,260,80);
+            lblPosition.setForeground(Color.white);
+            lblPosition.setHorizontalAlignment(SwingConstants.LEFT);
+            lblPosition.setFont(new Font("SansSerif", Font.BOLD, 15));
+            pnlInfo.add(lblPosition);
 
-        lblLastScore = new JLabel("ULTIMO PUNTAJE: ");
-        lblLastScore.setBounds(20,220,260,80);
-        lblLastScore.setForeground(Color.white);
-        lblLastScore.setHorizontalAlignment(SwingConstants.LEFT);
-        lblLastScore.setFont(new Font("SansSerif", Font.BOLD, 15));
-        pnlInfo.add(lblLastScore);
+            lblDiceRolls = new JLabel("LANZAMIENTOS: "+c.getListThreadLauch().get(0).getCountLauchess());
+            lblDiceRolls.setBounds(20,185,260,80);
+            lblDiceRolls.setForeground(Color.white);
+            lblDiceRolls.setHorizontalAlignment(SwingConstants.LEFT);
+            lblDiceRolls.setFont(new Font("SansSerif", Font.BOLD, 15));
+            pnlInfo.add(lblDiceRolls);
 
-        lblTotalScore = new JLabel("PUNTAJE: ");
-        lblTotalScore.setBounds(20,255,260,80);
-        lblTotalScore.setForeground(Color.white);
-        lblTotalScore.setHorizontalAlignment(SwingConstants.LEFT);
-        lblTotalScore.setFont(new Font("SansSerif", Font.BOLD, 15));
-        pnlInfo.add(lblTotalScore);
+            lblLastScore = new JLabel("ULTIMO PUNTAJE: ");
+            lblLastScore.setBounds(20,220,260,80);
+            lblLastScore.setForeground(Color.white);
+            lblLastScore.setHorizontalAlignment(SwingConstants.LEFT);
+            lblLastScore.setFont(new Font("SansSerif", Font.BOLD, 15));
+            pnlInfo.add(lblLastScore);
 
-        lblMissingScore = new JLabel("PUNTAJE FALTANTE: ");
-        lblMissingScore.setBounds(20,290,260,80);
-        lblMissingScore.setForeground(Color.white);
-        lblMissingScore.setHorizontalAlignment(SwingConstants.LEFT);
-        lblMissingScore.setFont(new Font("SansSerif", Font.BOLD, 15));
-        pnlInfo.add(lblMissingScore);
+            lblTotalScore = c.getListThreadLauch().get(0).getJLPoints();
+            lblTotalScore.setBounds(20,255,260,80);
+            lblTotalScore.setForeground(Color.white);
+            lblTotalScore.setHorizontalAlignment(SwingConstants.LEFT);
+            lblTotalScore.setFont(new Font("SansSerif", Font.BOLD, 15));
+            pnlInfo.add(lblTotalScore);
+
+            lblMissingScore = new JLabel("PUNTAJE FALTANTE: "+(200 - c.getListPlayers().get(0).getPoints()));
+            lblMissingScore.setBounds(20,290,260,80);
+            lblMissingScore.setForeground(Color.white);
+            lblMissingScore.setHorizontalAlignment(SwingConstants.LEFT);
+            lblMissingScore.setFont(new Font("SansSerif", Font.BOLD, 15));
+            pnlInfo.add(lblMissingScore);
+
+
     }
     private void createLabel() {
 

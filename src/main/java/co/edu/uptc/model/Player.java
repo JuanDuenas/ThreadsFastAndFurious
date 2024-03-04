@@ -6,6 +6,15 @@ public class Player {
     private String zoneId;
     private int numParties;
     private int points;
+    private int lauchess;
+
+    public int getLauchess() {
+        return lauchess;
+    }
+
+    public void setLauchess(int lauchess) {
+        this.lauchess = lauchess;
+    }
 
     public String getZoneId() {
         return zoneId;

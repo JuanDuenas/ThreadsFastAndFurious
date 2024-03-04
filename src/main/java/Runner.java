@@ -1,15 +1,14 @@
 import co.edu.uptc.logic.Controller;
 import co.edu.uptc.model.Player;
 import co.edu.uptc.model.ThreadPlayer;
+import co.edu.uptc.view.GameScreen;
 import co.edu.uptc.view.MainScreen;
 
 public class Runner {
     public static void main(String[] args){
 
-        MainScreen msc = new MainScreen();
-        Controller c = new Controller();
-        c.initgame();
 
+        new GameScreen();
 
         /*
         Player p1 = new Player();

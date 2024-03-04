@@ -2,6 +2,7 @@ package co.edu.uptc.model;
 
 import co.edu.uptc.logic.Controller;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -11,10 +12,15 @@ public class ThreadPlayer implements Runnable{
     private String zoneId;
     private ZonedDateTime zdt;
     private DateTimeFormatter dtf;
+    private String fdt;
+    private JLabel JLHour;
+
 
 
     public ThreadPlayer(String zoneId){
         this.zoneId = zoneId;
+        this.fdt = "";
+        JLHour = new JLabel();
     }
     @Override
     public void run() {
@@ -23,10 +29,11 @@ public class ThreadPlayer implements Runnable{
             while(true){
                 zdt = ZonedDateTime.now(ZoneId.of(zoneId));
                 dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
-                String fdt = zdt.format(dtf);
+                fdt = zdt.format(dtf);
+                JLHour.setText(fdt);
 
-                System.out.println(fdt+" en "+zoneId);
-                Thread.sleep((int) (Math.random()*5000) +2000);
+                Thread.sleep(1000);
+
             }
         }catch (InterruptedException ex){
             ex.getMessage();
@@ -34,5 +41,14 @@ public class ThreadPlayer implements Runnable{
 
     }
 
+
+
+    public JLabel getJLHour(){
+        return JLHour;
+    }
+
+    public String getFdt() {
+        return fdt;
+    }
 }
 
