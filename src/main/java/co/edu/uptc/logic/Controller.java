@@ -42,8 +42,9 @@ public class Controller {
         t5.start();
 
         listThreadLauch = new ArrayList<>();
+
         for (int i = 0; i < 5; i++) {
-            ThreadLauch tl = new ThreadLauch(i);
+            ThreadLauch tl = new ThreadLauch(i,listPlayers.get(i));
             listThreadLauch.add(tl);
         }
 

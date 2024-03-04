@@ -4,12 +4,12 @@ import co.edu.uptc.logic.Controller;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.text.Position;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ThreadLauch implements Runnable{
     private int points;
@@ -25,9 +25,16 @@ public class ThreadLauch implements Runnable{
     private JLabel JLLastLaunch;
     private int carIndex;
 
+    private Player playerObjct;
+
+    ArrayList<Player> podiumList;
     private int lastLaunch;
 
-    public ThreadLauch(int carIndex){
+    public ThreadLauch(int carIndex, Player objct){
+
+        podiumList = new ArrayList<>();
+
+        playerObjct = objct;
 
         this.carIndex = carIndex;
         points = 0;
@@ -43,6 +50,12 @@ public class ThreadLauch implements Runnable{
     }
     @Override
     public void run() {
+        boolean p1 = false;
+        boolean p2 = false;
+        boolean p3 = false;
+        boolean p4 = false;
+        boolean p5 = false;
+
         while(true){
             try {
 
@@ -137,7 +150,18 @@ public class ThreadLauch implements Runnable{
                     xPosition = -420 + (points*20);
                     yPosition = 220;
                 } else  if(points > 32){
-                    JLCar.setVisible(false);
+                    xPosition = 2000;
+                    yPosition = 2000;
+                    for(Player p: podiumList) {
+                        if(p.equals(playerObjct)) {
+                            p1 = true;
+                        }
+                    }
+                    if(!p1) {
+                        podiumList.add(playerObjct);
+                        JOptionPane.showMessageDialog(null,playerObjct.getName() + " Ha completado el circuíto!");
+                    }
+                    p1=false;
                 }
 
                 JLCar.setBounds(xPosition, yPosition, 90, 90);
