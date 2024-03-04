@@ -49,13 +49,14 @@ public class ThreadLauch implements Runnable{
         JLPosition = new JLabel();
 
     }
+
+    public boolean isStop() {
+        return stop;
+    }
+
     @Override
     public void run() {
         boolean p1 = false;
-        boolean p2 = false;
-        boolean p3 = false;
-        boolean p4 = false;
-        boolean p5 = false;
 
         while(stop){
             try {
@@ -84,6 +85,9 @@ public class ThreadLauch implements Runnable{
                     car1Image = ImageIO.read(new File("Image/Car5.png"));
                 }
 
+                if(this.getPoints() > 32){
+                    stopThread();
+                }
                 ImageIcon car1Icon = new ImageIcon(car1Image);
 
                 double rotationDegrees = 0;

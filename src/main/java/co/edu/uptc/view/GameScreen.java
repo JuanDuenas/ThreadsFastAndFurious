@@ -72,7 +72,6 @@ public class GameScreen extends JFrame {
 
 
 
-
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
@@ -111,6 +110,7 @@ public class GameScreen extends JFrame {
         */
 
         createLabel();
+        c.stopMovement();
         lblHour.setText("");
         lblName.setText("");
 
@@ -183,7 +183,7 @@ public class GameScreen extends JFrame {
             pnlInfo.revalidate();
             pnlInfo.repaint();
             validateCar(index);
-            c.stopMovement();
+
 
     }
 

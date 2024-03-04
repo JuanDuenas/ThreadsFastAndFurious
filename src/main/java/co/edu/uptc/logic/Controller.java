@@ -19,6 +19,14 @@ public class Controller {
     private List<ThreadPlayer> listThreadPlayer;
     private List<ThreadLauch> listThreadLauch;
 
+    private List<Player> listPodium;
+
+    private boolean p1;
+    private boolean p2;
+    private boolean p3;
+    private boolean p4;
+    private boolean p5;
+
     public void initgame() {
         loadValues();
 
@@ -60,23 +68,8 @@ public class Controller {
         tp4.start();
         tp5.start();
     }
-    public void stopMovement(){
-        if(listThreadLauch.get(0).getPoints() >= 32){
-            listThreadLauch.get(0).stopThread();
-        }
-        if(listThreadLauch.get(1).getPoints() >= 32){
-            listThreadLauch.get(1).stopThread();
-        }
-        if(listThreadLauch.get(2).getPoints() >= 32){
-            listThreadLauch.get(2).stopThread();
-        }
-        if(listThreadLauch.get(3).getPoints() >= 32){
-            listThreadLauch.get(3).stopThread();
-        }
-        if(listThreadLauch.get(4).getPoints() >= 32){
-            listThreadLauch.get(4).stopThread();
-        }
-    }
+
+
     public List<ThreadLauch> getListThreadLauch() {
         return listThreadLauch;
     }
@@ -87,6 +80,11 @@ public class Controller {
 
     public Controller(){
         listPlayers = new ArrayList<>();
+        p1 = false;
+        p2 = false;
+        p3 = false;
+        p4 = false;
+        p5 = false;
     }
 
     public List<Player> getListPlayers() {
