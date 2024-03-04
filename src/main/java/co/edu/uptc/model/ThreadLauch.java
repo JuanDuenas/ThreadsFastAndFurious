@@ -29,9 +29,10 @@ public class ThreadLauch implements Runnable{
 
     ArrayList<Player> podiumList;
     private int lastLaunch;
+    private boolean stop;
 
     public ThreadLauch(int carIndex, Player objct){
-
+        stop = true;
         podiumList = new ArrayList<>();
 
         playerObjct = objct;
@@ -56,7 +57,7 @@ public class ThreadLauch implements Runnable{
         boolean p4 = false;
         boolean p5 = false;
 
-        while(true){
+        while(stop){
             try {
 
                 Controller c = new Controller();
@@ -190,6 +191,9 @@ public class ThreadLauch implements Runnable{
         }
     }
 
+    public void stopThread(){
+        stop = false;
+    }
     public JLabel getJLPosition() {
         return JLPosition;
     }

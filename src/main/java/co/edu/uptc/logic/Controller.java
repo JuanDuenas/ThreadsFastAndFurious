@@ -59,23 +59,24 @@ public class Controller {
         tp3.start();
         tp4.start();
         tp5.start();
-
+    }
+    public void stopMovement(){
         if(listThreadLauch.get(0).getPoints() >= 32){
-            tp1.interrupt();
+            listThreadLauch.get(0).stopThread();
         }
         if(listThreadLauch.get(1).getPoints() >= 32){
-            tp2.interrupt();
+            listThreadLauch.get(1).stopThread();
         }
         if(listThreadLauch.get(2).getPoints() >= 32){
-            tp3.interrupt();
-        }if(listThreadLauch.get(3).getPoints() >= 32){
-            tp4.interrupt();
+            listThreadLauch.get(2).stopThread();
+        }
+        if(listThreadLauch.get(3).getPoints() >= 32){
+            listThreadLauch.get(3).stopThread();
         }
         if(listThreadLauch.get(4).getPoints() >= 32){
-            tp5.interrupt();
+            listThreadLauch.get(4).stopThread();
         }
     }
-
     public List<ThreadLauch> getListThreadLauch() {
         return listThreadLauch;
     }

@@ -183,6 +183,7 @@ public class GameScreen extends JFrame {
             pnlInfo.revalidate();
             pnlInfo.repaint();
             validateCar(index);
+            c.stopMovement();
 
     }
 
