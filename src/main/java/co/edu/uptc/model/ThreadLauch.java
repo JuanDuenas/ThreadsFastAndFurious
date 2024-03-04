@@ -30,13 +30,14 @@ public class ThreadLauch implements Runnable{
     ArrayList<Player> podiumList;
     private int lastLaunch;
     private boolean stop;
+    private Controller c;
 
-    public ThreadLauch(int carIndex, Player objct){
+    public ThreadLauch(int carIndex, Player objct,Controller c){
         stop = true;
         podiumList = new ArrayList<>();
 
         playerObjct = objct;
-
+        this.c = c;
         this.carIndex = carIndex;
         points = 0;
         countLauchess = 0;
@@ -61,7 +62,7 @@ public class ThreadLauch implements Runnable{
         while(stop){
             try {
 
-                Controller c = new Controller();
+
                 lastLaunch = c.makeLaunch();
                 points = points+lastLaunch;
                 countLauchess +=1;
@@ -72,6 +73,8 @@ public class ThreadLauch implements Runnable{
                 JLPosition.setText("POSICIÓN: "+points);
 
                 Image car1Image = null;
+
+
 
                 if(carIndex == 0) {
                     car1Image = ImageIO.read(new File("Image/Car1.png"));
@@ -87,6 +90,7 @@ public class ThreadLauch implements Runnable{
 
                 if(this.getPoints() > 32){
                     stopThread();
+                    c.podium();
                 }
                 ImageIcon car1Icon = new ImageIcon(car1Image);
 
@@ -186,7 +190,7 @@ public class ThreadLauch implements Runnable{
                 ImageIcon rotatedIcon = new ImageIcon(rotatedImage);
                 JLCar.setIcon(rotatedIcon);
                 JLCar.setVisible(true);
-                Thread.sleep((int) (Math.random()*10000) +4000);
+                Thread.sleep((int) (Math.random()*2000) +1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {

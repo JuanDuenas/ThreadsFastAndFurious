@@ -52,7 +52,7 @@ public class Controller {
         listThreadLauch = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
-            ThreadLauch tl = new ThreadLauch(i,listPlayers.get(i));
+            ThreadLauch tl = new ThreadLauch(i,listPlayers.get(i),this);
             listThreadLauch.add(tl);
         }
 
@@ -67,6 +67,93 @@ public class Controller {
         tp3.start();
         tp4.start();
         tp5.start();
+
+    }
+
+    public void podium(){
+        if(!listThreadLauch.get(0).isStop()){
+            if(listPodium != null){
+                boolean validate = false;
+                for(Player p:listPodium){
+                    if(p.equals(listPlayers.get(0))){
+                        validate = true;
+                    }
+                }
+                if(!validate){
+                    listPodium.add(listPlayers.get(0));
+                    p1 = true;
+                }
+            }
+
+        }
+        if(!listThreadLauch.get(1).isStop()){
+            if(listPodium != null){
+                boolean validate = false;
+                for(Player p:listPodium){
+                    if(p.equals(listPlayers.get(1))){
+                        validate = true;
+                    }
+                }
+                if(!validate){
+                    listPodium.add(listPlayers.get(1));
+                    p2 = true;
+                }
+            }
+        }
+        if(!listThreadLauch.get(2).isStop()){
+            if(listPodium != null){
+                boolean validate = false;
+                for(Player p:listPodium){
+                    if(p.equals(listPlayers.get(2))){
+                        validate = true;
+                    }
+                }
+                if(!validate){
+                    listPodium.add(listPlayers.get(2));
+                    p3 = true;
+                }
+            }
+        }
+        if(!listThreadLauch.get(3).isStop()){
+            if(listPodium != null){
+                boolean validate = false;
+                for(Player p:listPodium){
+                    if(p.equals(listPlayers.get(3))){
+                        validate = true;
+                    }
+                }
+                if(!validate){
+                    listPodium.add(listPlayers.get(3));
+                    p4 = true;
+                }
+            }
+        }
+        if(!listThreadLauch.get(4).isStop()){
+            if(listPodium != null){
+                boolean validate = false;
+                for(Player p:listPodium){
+                    if(p.equals(listPlayers.get(4))){
+                        validate = true;
+                    }
+                }
+                if(!validate){
+                    listPodium.add(listPlayers.get(4));
+                    p5 = true;
+                }
+            }
+        }
+        validatePodium();
+
+
+
+    }
+
+    public void validatePodium() {
+        if(p1 && p2 && p3 && p4 && p5 ){
+            for (int i = 0; i<listPodium.size();i++){
+                System.out.println((i+1)+". "+listPodium.get(i).getName());
+            }
+        }
     }
 
 
@@ -79,13 +166,16 @@ public class Controller {
     }
 
     public Controller(){
+        listPodium = new ArrayList<>();
         listPlayers = new ArrayList<>();
+        listThreadLauch = new ArrayList<>();
         p1 = false;
         p2 = false;
         p3 = false;
         p4 = false;
         p5 = false;
     }
+
 
     public List<Player> getListPlayers() {
         return listPlayers;

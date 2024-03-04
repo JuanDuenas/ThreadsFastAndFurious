@@ -110,7 +110,6 @@ public class GameScreen extends JFrame {
         */
 
         createLabel();
-        c.stopMovement();
         lblHour.setText("");
         lblName.setText("");
 
