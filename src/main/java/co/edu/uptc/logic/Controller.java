@@ -3,6 +3,7 @@ package co.edu.uptc.logic;
 import co.edu.uptc.model.Player;
 import co.edu.uptc.model.ThreadLauch;
 import co.edu.uptc.model.ThreadPlayer;
+import co.edu.uptc.view.GameScreen;
 import co.edu.uptc.view.PodiumScreen;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -27,6 +28,8 @@ public class Controller {
     private boolean p3;
     private boolean p4;
     private boolean p5;
+    private int parties;
+    GameScreen gameScreen;
 
     public void initgame() {
         loadValues();
@@ -50,6 +53,7 @@ public class Controller {
         t4.start();
         t5.start();
 
+        parties++;
         listThreadLauch = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
@@ -151,10 +155,14 @@ public class Controller {
 
     public void validatePodium() {
         if(p1 && p2 && p3 && p4 && p5 ){
-            PodiumScreen p = new PodiumScreen(listPodium);
+            PodiumScreen p = new PodiumScreen(listPodium,listThreadLauch,this);
+            gameScreen.setVisible(false);
         }
     }
 
+    public int getParties() {
+        return parties;
+    }
 
     public List<ThreadLauch> getListThreadLauch() {
         return listThreadLauch;
@@ -164,7 +172,7 @@ public class Controller {
         return listThreadPlayer;
     }
 
-    public Controller(){
+    public Controller(GameScreen g,int party){
         listPodium = new ArrayList<>();
         listPlayers = new ArrayList<>();
         listThreadLauch = new ArrayList<>();
@@ -173,6 +181,8 @@ public class Controller {
         p3 = false;
         p4 = false;
         p5 = false;
+        parties = party;
+        gameScreen = g;
     }
 
 

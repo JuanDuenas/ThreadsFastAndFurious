@@ -152,7 +152,7 @@ public class ThreadLauch implements Runnable{
                     }
                     else if(points == 25) {
                         rotationDegrees = 335;
-                        xPosition = 560;
+                        xPosition = 20;
                         yPosition = 235;
                     }
                 } else  if(points >= 26 && points <= 32){
@@ -189,7 +189,7 @@ public class ThreadLauch implements Runnable{
                 ImageIcon rotatedIcon = new ImageIcon(rotatedImage);
                 JLCar.setIcon(rotatedIcon);
                 JLCar.setVisible(true);
-                Thread.sleep((int) (Math.random()*2000) +1000);
+                Thread.sleep((int) (Math.random()*6000) +2000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {

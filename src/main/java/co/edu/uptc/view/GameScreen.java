@@ -24,18 +24,21 @@ public class GameScreen extends JFrame {
 
     JButton btnPlayer1, btnPlayer2, btnPlayer3, btnPlayer4, btnPlayer5;
 
+    JButton btnCredits;
+
     boolean i1 = false;
     boolean i2 = false;
     boolean i3 = false;
     boolean i4 = false;
     boolean i5 = false;
 
+    int match = 0;
     Controller c;
 
 
-    public GameScreen() {
-
-        c = new Controller();
+    public GameScreen(int party) {
+        match = party + 1;
+        c = new Controller(this,party);
         c.initgame();
 
         setSize(900, 500);
@@ -137,7 +140,8 @@ public class GameScreen extends JFrame {
             lblHour.setFont(new Font("SansSerif", Font.PLAIN, 14));
             pnlInfo.add(lblHour);
 
-            lblMatch = new JLabel("PARTIDA: "+(c.getListPlayers().get(index).getNumParties()+1));
+            //lblMatch = new JLabel("PARTIDA: "+(c.getListPlayers().get(index).getNumParties()+1));
+            lblMatch = new JLabel("PARTIDA: "+(match));
             lblMatch.setBounds(20,115,260,80);
             lblMatch.setForeground(Color.white);
             lblMatch.setHorizontalAlignment(SwingConstants.LEFT);
@@ -258,6 +262,21 @@ public class GameScreen extends JFrame {
         pnlInfo.add(lblTitle);
     }
     private void createButton() {
+
+        btnCredits = new JButton("Acerca de...");
+        btnCredits.setBounds(95, 400, 100, 40);
+        btnCredits.setBackground(Color.white);
+        btnCredits.setForeground(Color.black);
+        btnCredits.setBorder(new LineBorder(Color.black, 1));
+        pnlInfo.add(btnCredits);
+
+        btnCredits.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MainScreen mn = new MainScreen();
+            }
+        });
+
         btnPlayer1 = new JButton("Mostrar");
         btnPlayer1.setBounds(10, 110, 90, 40);
         btnPlayer1.setBackground(Color.white);
