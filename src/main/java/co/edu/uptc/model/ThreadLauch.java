@@ -168,7 +168,6 @@ public class ThreadLauch implements Runnable{
                     }
                     if(!p1) {
                         podiumList.add(playerObjct);
-                        JOptionPane.showMessageDialog(null,playerObjct.getName() + " Ha completado el circuíto!");
                     }
                     p1=false;
                 }

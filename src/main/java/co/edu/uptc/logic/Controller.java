@@ -3,6 +3,7 @@ package co.edu.uptc.logic;
 import co.edu.uptc.model.Player;
 import co.edu.uptc.model.ThreadLauch;
 import co.edu.uptc.model.ThreadPlayer;
+import co.edu.uptc.view.PodiumScreen;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -150,9 +151,7 @@ public class Controller {
 
     public void validatePodium() {
         if(p1 && p2 && p3 && p4 && p5 ){
-            for (int i = 0; i<listPodium.size();i++){
-                System.out.println((i+1)+". "+listPodium.get(i).getName());
-            }
+            PodiumScreen p = new PodiumScreen(listPodium);
         }
     }
 

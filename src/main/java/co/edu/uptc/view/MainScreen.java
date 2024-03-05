@@ -84,7 +84,7 @@ public class MainScreen extends JFrame {
 
         lblPlayer5 = new JLabel("Jugador 5");
         lblPlayer5.setBounds(25,190,250,40);
-        lblPlayer5.setFont(new Font("SansSerif", Font.BOLD, 18));
+        lblPlayer5.setFont(new Font("SansSerif", Font.BOLD, 184));
         pnlWhiteBG.add(lblPlayer5);
     }
 
@@ -93,14 +93,14 @@ public class MainScreen extends JFrame {
         btnAbout.setBounds(25,350,140,40);
         btnAbout.setBackground(Color.white);
         btnAbout.setForeground(Color.BLACK);
-        btnAbout.setFont(new Font("SansSerif", Font.BOLD, 15));
+        btnAbout.setFont(new Font("SansSerif", Font.BOLD, 14));
         pnlBackground.add(btnAbout);
 
         btnPlay = new JButton("JUGAR");
         btnPlay.setBounds(225,350,140,40);
         btnPlay.setBackground(Color.white);
         btnPlay.setForeground(Color.BLACK);
-        btnPlay.setFont(new Font("SansSerif", Font.BOLD, 15));
+        btnPlay.setFont(new Font("SansSerif", Font.BOLD, 14));
         pnlBackground.add(btnPlay);
 
         btnPlay.addActionListener(new ActionListener() {
